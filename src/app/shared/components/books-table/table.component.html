@@ -1,0 +1,31 @@
+<div class="row m-0">
+  <div class="col-12 col-sm-2">
+    <section>
+      <h4>Visible columns</h4>
+      <ng-container *ngFor="let column of displayedColumns">
+        <p>
+          <mat-checkbox [checked]="true" (change)="onCheckboxChange($event, column)">{{ column | underscoreToSpace }}</mat-checkbox>
+        </p>
+      </ng-container>
+    </section>
+  </div>
+  <div class="col-12 col-sm-10 p-0">
+    <mat-form-field class="w-100">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search" [(ngModel)]="searchTerm" (input)="applyFilter()">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="data">
+      <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+        <th class="pointer" mat-header-cell *matHeaderCellDef (click)="sortTable(column)">{{ column | underscoreToSpace }}</th>
+        <td mat-cell *matCellDef="let element">
+          <p *ngIf="column === 'Title'" class="pointer text-info" [routerLink]="[element['Id']]">{{ element[column] }}</p>
+          <p *ngIf="column !== 'Title'">{{ element[column] }}</p>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+  </div>
+</div>
