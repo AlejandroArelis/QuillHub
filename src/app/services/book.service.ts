@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.reducers';
 import { Book } from '../Models/book.model';
-import { updateBook } from '../store/app.actions';
-import { Observable, Subscription, filter, map } from 'rxjs';
-import { selectBooks } from '../store/app.selectors';
+import { createBook, deleteBook, updateBook } from '../store/app.actions';
+import { filter, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +27,13 @@ export class BookService {
       filter((response: AppState) => !!response.books),
       map((response: AppState) => response.books?.find(book => book.Id === bookId))
     );
+  }
+
+  createBook(newBook: Book): void {
+    this._store.dispatch(createBook({ book: newBook }));
+  }
+
+  deleteBookById(bookId: string): void {
+    this._store.dispatch(deleteBook({ bookId: bookId }));
   }
 }

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Book } from '../Models/book.model';
-import { updateBook } from './app.actions';
+import { createBook, deleteBook, updateBook } from './app.actions';
 import { BOOKS } from '../Data/books.data';
 
 export interface AppState {
@@ -21,5 +21,13 @@ export const appReducer = createReducer(
       }
       return existingBook;
     })
+  })),
+  on(createBook, (state, { book }) => ({
+    ...state,
+    books: [...(state?.books || []), book]
+  })),
+  on(deleteBook, (state, { bookId }) => ({
+    ...state,
+    books: state?.books?.filter(book => book.Id !== bookId)
   }))
 );

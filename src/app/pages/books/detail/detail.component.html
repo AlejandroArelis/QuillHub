@@ -22,6 +22,9 @@
       <mat-form-field class="w-100">
         <mat-label>ISBN</mat-label>
         <input type="number" matInput formControlName="ISBN">
+        <div *ngIf="form?.get('ISBN')?.hasError('invalidISBN')" class="error-message">
+          The ISBN is invalid. It should have between 10 and 13 numeric digits.
+        </div>
       </mat-form-field>
     </div>
     <div class="col-12 col-sm-6">
@@ -36,11 +39,17 @@
         <input type="number" matInput formControlName="Available_Copies">
       </mat-form-field>
     </div>
+
+    <div class="col-auto" *ngIf="!new">
+      <button mat-raised-button color="warn" type="button" (click)="delete()">
+        <mat-icon fontIcon="delete"></mat-icon>Delete
+      </button>
+    </div>
+    <div class="col-auto">
+      <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid">
+        <mat-icon fontIcon="save"></mat-icon>Save
+      </button>
+    </div>
   </div>
 
-  <div class="col-auto">
-    <button mat-raised-button color="accent" type="submit">
-      <mat-icon fontIcon="save"></mat-icon>Guardar
-    </button>
-  </div>
 </form>
