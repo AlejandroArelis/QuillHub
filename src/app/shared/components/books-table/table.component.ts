@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
-  @Input() data: any;
+  @Input() data: any = [];
   @Input() displayedColumns: string[] = [];
 
   columnsToDisplay: any = [];
@@ -15,6 +15,11 @@ export class TableComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    // Si this.data no es un array, conviértelo a uno.
+    if (!Array.isArray(this.data)) {
+      this.data = [this.data];
+    }
+
     this.originalData = [...this.data];
     this.columnsToDisplay = [ ...this.displayedColumns ];
   }

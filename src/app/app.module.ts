@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BooksModule } from './pages/books/books.module';
+import { appReducer } from './store/app.reducers';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // StoreModule.forRoot({}, {}),
+    BooksModule,
+    StoreModule.forRoot({ app: appReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent]
